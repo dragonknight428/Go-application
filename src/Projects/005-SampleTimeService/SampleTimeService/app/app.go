@@ -1,6 +1,5 @@
 /*
 	Sınıf çalışması: Aşağıdaki GET servisleri ekleyiniz
-	- ~/date:O anki tarihi json formatı ile döndüren servis
 	- ~/date/birth?name=Oguz&surname=Karan&day=10&dmonth=9&year=1976: Verilen bilgilere göre aşağıdaki json formatına dönen
 	servis
 		{"fullName": "Oğuz Karan, "birthDate": "10/09/1976", "age":47.39, "today":"20/01/2024"}
@@ -128,7 +127,6 @@ func addHandlers(handler *http.ServeMux) {
 	handler.Handle("/date", http.HandlerFunc(dateHandler))
 	handler.Handle("/date/birth", http.HandlerFunc(birthDateHandler))
 	handler.Handle("/", http.HandlerFunc(defaultHandler))
-
 }
 
 func startServer(server *http.Server) {
