@@ -2,7 +2,7 @@ package entity
 
 import "github.com/jinzhu/gorm"
 
-type ClientInfo struct {
+type TimeClientInfo struct {
 	gorm.Model
 	Host     string
 	Name     string
