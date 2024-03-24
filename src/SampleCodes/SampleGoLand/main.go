@@ -1,7 +1,7 @@
 /*
 ------------------------------------------------------------------------------------------------------------------------
 
-	Aşağıdaki örnekte blok blok dosya kopyalaması yapılmıştır. Burada blok uzunluğu kullanıcı tarafından belirlenmiştir
+	Aşağıdaki demo örnekte text bir dosya karakter karakter okunup stdout'a bastırılmıştır
 
 ------------------------------------------------------------------------------------------------------------------------
 */
@@ -9,54 +9,38 @@ package main
 
 import (
 	"SampleGoLand/csd/err"
+	"bufio"
+	"fmt"
 	"io"
 	"os"
-	"strconv"
 )
 
 func main() {
-	if len(os.Args) != 4 {
-		err.ExitFailure("usage:csd_copy <src path> <dest path> <block size>")
+	if len(os.Args) != 2 {
+		err.ExitFailure("wrong number of arguments!...")
 	}
 
-	size, e := strconv.Atoi(os.Args[3])
+	f, e := os.Open(os.Args[1])
 
 	if e != nil {
-		err.ExitFailure("invalid block size!...")
+		err.ExitFailureError("Open:", e)
 	}
 
-	fs, e := os.OpenFile(os.Args[1], os.O_RDONLY, 0)
+	defer func() { _ = f.Close() }()
 
-	if e != nil {
-		err.ExitFailureError("OpenFile", e)
-	}
-
-	fd, e := os.OpenFile(os.Args[2], os.O_CREATE|os.O_WRONLY, 0777)
-
-	if e != nil {
-		err.ExitFailureError("OpenFile", e)
-	}
-
-	data := make([]byte, size)
+	reader := bufio.NewReader(f)
 
 	for {
-		n, e := fs.Read(data)
+		line, e := reader.ReadString('\n')
 
-		if e != nil && e != io.EOF {
-			err.ExitFailureError("Read", e)
-		}
-
-		if n == 0 {
+		if e == io.EOF {
 			break
 		}
 
-		writeData := make([]byte, n)
-		copy(writeData, data)
-
-		_, e = fd.Write(writeData)
-
 		if e != nil {
-			err.ExitFailureError("Write", e)
+			err.ExitFailureError("ReadString", e)
 		}
+
+		fmt.Print(line)
 	}
 }
