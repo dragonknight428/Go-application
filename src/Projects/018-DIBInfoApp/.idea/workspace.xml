@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ff7bda6-f4d9-4ce6-b05e-71ab21551ed1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../017-RandomNumberGeneratorPosixApp/.idea/017-RandomNumberGeneratorPosixApp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/csd/err/exit.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../doc/Examples.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../doc/Examples.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../017-RandomNumberGeneratorPosixApp/.idea/017-RandomNumberGeneratorPosixApp.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +47,8 @@
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "last_opened_file_path": "/Users/oguzkaran/Dropbox/CSD/Kurslar/Go-Programming-Applications-Sep-2023/src/Projects/018-DIBInfoApp/csd",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
