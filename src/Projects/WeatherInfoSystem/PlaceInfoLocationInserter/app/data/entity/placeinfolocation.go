@@ -2,7 +2,7 @@ package entity
 
 import "github.com/jinzhu/gorm"
 
-type PlaceInfo struct {
+type PlaceInfoLocation struct {
 	gorm.Model
 	Name      string
 	Latitude  float64

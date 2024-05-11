@@ -25,9 +25,8 @@ func savePlaceCallback(c *gin.Context, r *repository.PlaceInfoRepository) {
 		})
 	}
 }
-
 func addEndPoints(e *gin.Engine, r *repository.PlaceInfoRepository) {
-	e.POST("/api/places/save", func(context *gin.Context) {
+	e.POST("/api/weather/save/location", func(context *gin.Context) {
 		savePlaceCallback(context, r)
 	})
 }
