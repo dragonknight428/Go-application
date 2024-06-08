@@ -2,85 +2,41 @@ package recursionutil
 
 import (
 	"SampleGoLand/csd/recursion/recursionutil"
-	"bufio"
+	"SampleGoLand/test/assert"
+	"SampleGoLand/test/recursion/file"
 	"fmt"
-	"io"
-	"os"
 	"strconv"
 	"strings"
 	"testing"
 )
 
-func readTestFile(path string) []string {
-	f, err := os.OpenFile(path, os.O_RDONLY, 0777)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
-	}
-	defer func() { _ = f.Close() }()
-
-	reader := bufio.NewReader(f)
-
-	var lines []string
-
-	for {
-		line, err := reader.ReadString('\n')
-
-		if err != nil && err != io.EOF {
-			fmt.Fprintf(os.Stderr, "%v\n", err)
-			os.Exit(1)
-		}
-
-		if err == io.EOF && len(line) == 0 {
-			break
-		}
-		line = strings.TrimRight(line, "\n")
-		lines = append(lines, line)
-	}
-
-	return lines
-}
-
+// Author: Sinan Kesen
 func TestReverseString(t *testing.T) {
-	values := readTestFile("reverse_string_test_values")
+	values := file.ReadTestFile("../testfiles/reverse_string_test_values")
 	for _, val := range values {
 		testVal := strings.Split(val, " ")
-		if len(testVal) != 2 {
-			fmt.Fprintf(os.Stderr, "Wrong test input: %s\n", testVal)
-			continue
-		}
 		str := testVal[0]
-		reverseStr := testVal[1]
-		if actual := recursionutil.ReverseString(str); actual != reverseStr {
-			t.Errorf("ReverseStr(%s) = %s, want %s", str, actual, reverseStr)
-		}
+		expected := testVal[1]
+		actual := recursionutil.ReverseString(str)
+		message := fmt.Sprintf("ReverseStr(%s) = %s, want %s", str, actual, expected)
+		assert.Equals(t, message, expected, actual)
 	}
 }
 
+// Author: Sinan Kesen
 func TestFactorial(t *testing.T) {
-
-	values := readTestFile("factorial_test_values")
-
+	values := file.ReadTestFile("../testfiles/factorial_test_values")
 	for _, val := range values {
 		testVal := strings.Split(val, " ")
-		input, err := strconv.Atoi(testVal[0])
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "%s cannot be converted into integer\n", testVal[0])
-			continue
-		}
-
-		result, err := strconv.Atoi(testVal[1])
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "%s cannot be converted into integer\n", testVal[0])
-			continue
-		}
-
-		if actual := recursionutil.Factorial(input); actual != result {
-			t.Errorf("Factorial(%d) = %d, want %d", input, actual, result)
-		}
+		input, _ := strconv.Atoi(testVal[0])
+		expected, _ := strconv.Atoi(testVal[1])
+		actual := recursionutil.Factorial(input)
+		message := fmt.Sprintf("Factorial(%d) = %d, want %d", input, actual, expected)
+		assert.Equals(t, message, expected, actual)
 	}
 }
 
+// Author: Sinan Kesen
 func TestGcd(t *testing.T) {
 	tests := []struct {
 		a, b int
@@ -96,8 +52,8 @@ func TestGcd(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		if result := recursionutil.Gcd(test.a, test.b); result != test.gcd {
-			t.Errorf("Gcd(%d, %d) = %d, want %d", test.a, test.b, result, test.gcd)
-		}
+		actual := recursionutil.Gcd(test.a, test.b)
+		message := fmt.Sprintf("Gcd(%d, %d) = %d, want %d", test.a, test.b, actual, test.gcd)
+		assert.Equals(t, message, test.gcd, actual)
 	}
 }
