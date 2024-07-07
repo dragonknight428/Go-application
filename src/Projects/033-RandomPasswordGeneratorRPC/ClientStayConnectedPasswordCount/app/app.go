@@ -2,7 +2,6 @@ package app
 
 import (
 	"Client/csd/console"
-	"Client/shared"
 	"net/rpc"
 	"os"
 )
@@ -18,16 +17,16 @@ func connect() *rpc.Client {
 	return c
 }
 
-func callGenerate(client *rpc.Client, info *shared.PasswordInfo) {
-	var result shared.PasswordsInfo
+func callGenerate(client *rpc.Client, count *int) {
+	var result string
 
-	e := client.Call("RandomPasswordGenerator.GeneratePasswords", info, &result)
+	e := client.Call("RandomPasswordGenerator.GeneratePassword", count, &result)
 	if e != nil {
 		_, _ = os.Stderr.WriteString("RPC problem" + e.Error())
 		return
 	}
 
-	_ = console.WriteLine("Result:%v", result.Passwords)
+	_ = console.WriteLine("Result:%s", result)
 }
 
 func Run() {
@@ -39,14 +38,12 @@ func Run() {
 	}(client)
 
 	for {
-		origin := console.ReadInt("Input origin:", "Invalid value!...")
-		bound := console.ReadInt("Input bound:", "Invalid value!...")
 		count := console.ReadInt("Input count:", "Invalid value!...")
 
-		if origin == 0 && bound == 0 && count <= 0 {
+		if count <= 0 {
 			break
 		}
-		info := &shared.PasswordInfo{Range: shared.RandomRange{Origin: origin, Bound: bound}, Count: count}
-		callGenerate(client, info)
+
+		callGenerate(client, &count)
 	}
 }
